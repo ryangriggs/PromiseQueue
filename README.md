@@ -36,20 +36,23 @@ Example:
 		// An asynchronous function to calculate the square of a number.
 		{
 			// queue.add() returns a promise which can be watched by the calling code.
-			// Wrap the queued function as an anonymous function so that it can be executed by the queue runner.
-			// Return a promise from the wrapped function.
+			// Wrap the queued function in an anonymous function so that it can be executed by the queue runner.
+			// Return a Promise from the wrapped function.
 			// Return a value to the calling function by calling resolve([return_value]) within the anonymous function.
 			return this.queue.add(() => {
 				return new Promise((resolve, reject) => {
 					// Here we do some async stuff:
-					setTimeout(() => { resolve(input * input); }, 2000);
-					// If error, call reject() here
+					setTimeout(() => { 
+						resolve(input * input); 
+						// If error, call reject() here
+					}, 2000);
+					
 				});
 			});
 		}
 
 		halfIt(input)
-		// Another demo async function
+		// Another demo async function: divide a number by two asynchronously
 		{
 			return this.queue.add(() => {
 				return new Promise((resolve, reject) => {
@@ -65,14 +68,15 @@ Example:
 
 	// Queue some functions:
 	f.squareIt(47)
-	.then((result) => l("The result of squareIt(47) is", result))
-	.catch((err) => l("Error running squareIt:", err));
+	.then((result) => console.log("The result of squareIt(47) is", result))
+	.catch((err) => console.log("Error running squareIt:", err));
 
 	f.halfIt(100)
-	.then((result) => l("The result of halfIt(100) is", result))
-	.catch((err) => l("Error running halfIt:", err));
+	.then((result) => console.log("The result of halfIt(100) is", result))
+	.catch((err) => console.log("Error running halfIt:", err));
+
+	// At this point the functions are queued and ready to execute.
 
 	// Run the queue sequentially:
 	f.queue.run();
-
-
+	// Each function will execute in sequence, and when complete, its Promise will resolve, returning the result to the .then() function above.
