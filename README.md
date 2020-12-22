@@ -1,8 +1,11 @@
 # PromiseQueue
 Javascript Promise FIFO Sequential Queue
 
-PromiseQueue allows a sequence of Promises to be queued together, running sequentially.
-Additional Promises can be queued while the existing queue are running.
+PromiseQueue allows a sequence of Promise-based functions to be queued together in order to be run sequentially.  Each individual queued function runs after the previous one completes, regardless of whether the previous one resolved or rejected.
+
+Additional Promises can be queued while the existing queued functions are running.
+
+The queue can be stopped before completing all queued elements.
 
 # Usage
 
