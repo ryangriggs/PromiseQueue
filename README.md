@@ -8,10 +8,11 @@ Additional Promises can be queued while the existing queue are running.
 
 [constructor] - initialize empty queue
 
-add(function_to_execute) - Add an asynchronous function to the queue.
+add(function_to_execute, run_now) - Add an asynchronous function to the queue.  (set run_now to true to start running the queue immediately upon adding this function.  Additional functions can be added even after the queue is running.
 
 run() - Run the queue (if not already running)
 
+set PromiseQueue.stop = true to stop the queue after the currently executing item is completed.
 
 Example:
 
